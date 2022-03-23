@@ -16,11 +16,12 @@ docker run -t -d --name product-data-processor-container product-data-processor:
 ```bash
 docker exec product-data-processor-container php application.php app:process-product-data files/coffee_feed_trimmed.xml
 ```
-where `files/coffee_feed_trimmed.xml` is the relative path of the input file starting from the root of the application. You may also pass it as an absoulte path of a remote URI of an XMl file.
+where `files/coffee_feed_trimmed.xml` is the relative path of the input file starting from the root of the application. You may also pass it as an absoulte path or as a remote URI of an XMl file.
+
 6. Once the command completes successfully, you will be able to see the output in `files/output.csv`
 
 ## TODOs for Improvements:
 If I could have spent more time on this project, I would have loved to
 1. Handle errors gracefully and maintain a log of records.
-2. Add more tests specifically for negative scenarios.
+2. Add more tests, specifically for negative scenarios.
 3. Use Symfony container for DI
