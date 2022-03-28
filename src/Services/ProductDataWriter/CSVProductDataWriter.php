@@ -16,7 +16,14 @@ class CSVProductDataWriter implements ProductDataWriterInterface
 
     public function saveProduct(ProductData $data): bool
     {
-        fputcsv($this->file, [
+        fputcsv($this->file, $this->getDataToSave($data));
+
+        return true;
+    }
+
+    public function getDataToSave(ProductData $data): array
+    {
+        return [
             $data->entityId,
             $data->categoryName,
             $data->sku,
@@ -35,9 +42,7 @@ class CSVProductDataWriter implements ProductDataWriterInterface
             $data->inStock,
             $data->facebook,
             $data->isKCup,
-        ]);
-
-        return true;
+        ];
     }
 
     public function __destruct()
