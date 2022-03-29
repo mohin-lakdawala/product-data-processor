@@ -9,7 +9,8 @@ class XMLProductFeedReaderTest extends TestCase
 {
     public function test_it_can_read_product_data_from_xml_file()
     {
-        $reader = new XMLProductFeedReader('files/input.xml');
+        $reader = new XMLProductFeedReader();
+        $reader->setFile('files/input.xml');
         $products = [];
         while ($data = $reader->getProduct()) {
             $products[] = $data;

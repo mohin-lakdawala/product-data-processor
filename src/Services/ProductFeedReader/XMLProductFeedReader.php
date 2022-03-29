@@ -11,10 +11,10 @@ class XMLProductFeedReader implements ProductFeedReaderInterface
 {
     protected XMLReader $reader;
 
-    public function __construct(public string $inputFile)
+    public function setFile(string $file): void
     {
         $this->reader = new XMLReader();
-        $this->reader->open($this->inputFile);
+        $this->reader->open($file);
     }
 
     public function getProduct(): ?ProductData

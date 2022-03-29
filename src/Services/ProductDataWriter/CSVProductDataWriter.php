@@ -9,7 +9,7 @@ class CSVProductDataWriter implements ProductDataWriterInterface
 {
     protected $file;
 
-    public function __construct($file)
+    public function setFile(string $file): void
     {
         $this->file = fopen($file, "w");
     }

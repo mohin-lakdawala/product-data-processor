@@ -10,7 +10,8 @@ class CSVProductDataWriterTest extends TestCase
 {
     public function test_it_can_parse_correct_data_to_save()
     {
-        $writer = new CSVProductDataWriter('output.csv');
+        $writer = new CSVProductDataWriter();
+        $writer->setFile('output.csv');
         $dataToSave = $writer->getDataToSave($this->getSampleProductData());
 
         $this->assertCount(18, $dataToSave);
@@ -18,7 +19,8 @@ class CSVProductDataWriterTest extends TestCase
 
     public function test_it_can_save_data_to_csv()
     {
-        $writer = new CSVProductDataWriter('files/output.csv');
+        $writer = new CSVProductDataWriter();
+        $writer->setFile('files/output.csv');
         $writer->saveProduct($this->getSampleProductData());
 
         $this->assertFileExists(realpath('files/output.csv'));

@@ -4,7 +4,6 @@ namespace App\Command;
 
 use App\Services\Contracts\ProductDataWriterInterface;
 use App\Services\Contracts\ProductFeedReaderInterface;
-use App\Services\ProductDataManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,9 +11,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ProcessProductDataCommand extends Command
 {
-    public ProductFeedReaderInterface $reader;
-    public ProductDataWriterInterface $writer;
     public string $outputFile = 'files/output.csv';
+    protected static $defaultName = 'app:process-product-data';
+
+    public function __construct(
+        protected ProductFeedReaderInterface $reader,
+        protected ProductDataWriterInterface $writer,
+    ) {
+        parent::__construct(self::$defaultName);
+    }
 
     public function configure()
     {
@@ -34,8 +39,8 @@ class ProcessProductDataCommand extends Command
         $output->writeln('Process starts!');
         $output->writeln($inputFile);
 
-        $this->reader = ProductDataManager::reader($inputFile);
-        $this->writer = ProductDataManager::writer($this->outputFile);
+        $this->reader->setFile($inputFile);
+        $this->writer->setFile($this->outputFile);
 
         while ($data = $this->reader->getProduct()) {
             $this->writer->saveProduct($data);

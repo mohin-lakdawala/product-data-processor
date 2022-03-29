@@ -1,0 +1,29 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  _instanceof:
+    Symfony\Component\Console\Command\Command:
+      tags: [ 'app.command' ]
+
+  App\:
+    resource: '../src/*'
+
+  App:
+    class: \App
+    public: true
+    arguments:
+      - !tagged_iterator app.command
+
+  App\Services\ProductFeedReader\XMLProductFeedReader:
+    class: App\Services\ProductFeedReader\XMLProductFeedReader
+
+  App\Services\ProductDataWriter\CSVProductDataWriter:
+    class: App\Services\ProductDataWriter\CSVProductDataWriter
+
+  App\Services\Contracts\ProductFeedReaderInterface: '@App\Services\ProductFeedReader\XMLProductFeedReader'
+  App\Services\Contracts\ProductDataWriterInterface: '@App\Services\ProductDataWriter\CSVProductDataWriter'
+
+  Symfony\Component\Console\Application:
+    public: true
